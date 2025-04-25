@@ -23,8 +23,6 @@ function App() {
     [totals]
   );
 
-  const [openFeedback, setOpenFeedback] = useState(false);
-
   const totalFeedback = totals.good + totals.neutral + totals.bad;
 
   const updateFeedback = (feedbackType) => {
@@ -34,13 +32,11 @@ function App() {
         neutral: 0,
         bad: 0,
       });
-      setOpenFeedback(false);
     } else {
       setTotals({
         ...totals,
         [feedbackType]: totals[feedbackType] + 1,
       });
-      setOpenFeedback(true);
     }
   };
 
@@ -50,7 +46,7 @@ function App() {
     <>
       <Description />
       <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} />
-      {openFeedback ? (
+      {totalFeedback > 0 ? (
         <Feedback
           totals={totals}
           totalFeedback={totalFeedback}
